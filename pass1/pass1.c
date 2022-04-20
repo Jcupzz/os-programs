@@ -5,8 +5,8 @@
 int main()
 {
 
-        char label[20], opcode[20], operand[20], optab_opcode[20], optab_value[20], ch;
-        int flag, n, start;
+        char label[20], opcode[20], operand[20], optab_opcode[20], optab_value[20];
+        int flag, temp, locctr;
         FILE *assembly = fopen("assemblylanguage.txt", "r");
         FILE *symtab = fopen("symtab.txt", "w");
         FILE *intermediate = fopen("intermediate.txt", "w");
@@ -15,8 +15,8 @@ int main()
 
         if (strcmp(opcode, "START") == 0)
         {
-                start = atoi(operand);
-                n = start;
+                locctr = atoi(operand);
+                temp = locctr;
                 fprintf(intermediate, "%s %s %s\n", label, opcode, operand);
         }
         while (strcmp(opcode, "END") != 0)
@@ -38,29 +38,29 @@ int main()
                         break;
                 }
                 fclose(optab);
-                fprintf(intermediate, "%d %s %s %s\n", start, label, opcode, operand);
+                fprintf(intermediate, "%d %s %s %s\n", locctr, label, opcode, operand);
 
                 if (strcmp(label, "**") != 0)
                 {
-                        fprintf(symtab, "%s %d\n", label, start);
+                        fprintf(symtab, "%s %d\n", label, locctr);
                 }
 
                 if (strcmp(opcode, "RESW") == 0)
                 {
-                        start += 3 * (atoi(operand));
+                        locctr += 3 * (atoi(operand));
                 }
 
                 else if (strcmp(opcode, "RESB") == 0)
                 {
-                        start += atoi(operand);
+                        locctr += atoi(operand);
                 }
                 else
                 {
-                        start += 3;
+                        locctr += 3;
                 }
         }
 
-        printf("Length of program: %d", start - n - 3);
+        printf("Length of program: %d", locctr - temp - 3);
         fclose(assembly);
         fclose(symtab);
         fclose(intermediate);
