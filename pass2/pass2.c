@@ -69,9 +69,9 @@ int main()
     {
         fscanf(assembly, "%s %s %s", label, opcode, operand);
         fscanf(fp5, "%s %s %s %s", ch, int_label, int_opcode, int_operand);
-        intermediate = fopen("optab.txt", "r");
+        optab = fopen("optab.txt", "r");
         flag = 0;
-        while (fscanf(intermediate, "%s %s", optab_opcode, optab_value) != EOF)
+        while (fscanf(optab, "%s %s", optab_opcode, optab_value) != EOF)
         {
             if (strcmp(opcode, optab_opcode) == 0)
             {
@@ -87,7 +87,7 @@ int main()
                 fclose(optab);
             }
         }
-        fclose(intermediate);
+        fclose(optab);
         if (flag == 0)
         {
             fprintf(symtab, "%s %s %s %s\n", ch, int_label, int_opcode, int_operand);
