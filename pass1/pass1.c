@@ -39,7 +39,7 @@ int main()
                 }
                 fclose(optab);
                 fprintf(intermediate, "%d %s %s %s\n", locctr, label, opcode, operand);
-
+                
                 if (strcmp(label, "**") != 0)
                 {
                         fprintf(symtab, "%s %d\n", label, locctr);
